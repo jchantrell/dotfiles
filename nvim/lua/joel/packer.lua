@@ -16,7 +16,7 @@ return require('packer').startup(function(use)
 	use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
 	use('nvim-treesitter/playground')
 
-  use('jose-elias-alvarez/null-ls.nvim')
+  use 'jose-elias-alvarez/null-ls.nvim' -- Use Neovim as a language server to inject LSP diagnostics, code actions, and more via Lua
 
 	use('ThePrimeagen/harpoon')
 	use('mbbill/undotree')
@@ -41,4 +41,6 @@ return require('packer').startup(function(use)
 			{'rafamadriz/friendly-snippets'}, 
 		}
 	}
+
+  use('ThePrimeagen/vim-be-good')
 end)
