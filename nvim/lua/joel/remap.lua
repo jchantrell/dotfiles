@@ -46,8 +46,21 @@ vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><
 -- chmod hack to make file executable
 vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
+vim.keymap.set('n', '<Up>', '<Nop>', { silent = true })
+vim.keymap.set('n', '<Down>', '<Nop>', { silent = true })
+vim.keymap.set('n', '<Left>', '<Nop>', { silent = true })
+vim.keymap.set('n', '<Right>', '<Nop>', { silent = true })
+
+vim.keymap.set("i", "<C-h>", "<Left>")
+vim.keymap.set("i", "<C-j>", "<Down>")
+vim.keymap.set("i", "<C-k>", "<Up>")
+vim.keymap.set("i", "<C-l>", "<Right>")
+vim.keymap.set("c", "<C-h>", "<Left>")
+vim.keymap.set("c", "<C-j>", "<Down>")
+vim.keymap.set("c", "<C-k>", "<Up>")
+vim.keymap.set("c", "<C-l>", "<Right>")
+
 -- source file
 vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")
 end)
-
