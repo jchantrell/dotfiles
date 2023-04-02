@@ -10,6 +10,7 @@ return require('packer').startup(function(use)
       vim.cmd('colorscheme material')
     end
   })
+  use('ms-jpq/chadtree')
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('nvim-treesitter/playground')
   use('jose-elias-alvarez/null-ls.nvim')
