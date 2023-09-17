@@ -4,13 +4,8 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim', tag = '0.1.1',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
-  use({
-    'marko-cerovac/material.nvim',
-    config = function()
-      vim.cmd('colorscheme material')
-    end
-  })
-  use 'lourenci/github-colors'
+  use 'projekt0n/github-nvim-theme'
+--use 'lourenci/github-colors'
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('nvim-treesitter/playground')
   use('jose-elias-alvarez/null-ls.nvim')
