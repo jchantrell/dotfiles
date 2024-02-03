@@ -72,13 +72,12 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>ff", "<cmd>lua vim.lsp.buf.format()<CR>", { noremap = true })
 end)
 
-
 lsp.setup()
 
 vim.diagnostic.config({
-  virtual_text = true
+  virtual_text = false,
+  underline = true
 })
-
 
 local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
@@ -101,6 +100,6 @@ null_ls.setup({
         "--jsx-single-quote"
       }
     }),
-    --    formatting.stylua,
+    formatting.stylua,
   },
 })

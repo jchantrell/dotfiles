@@ -4,6 +4,7 @@ local is_windows = wezterm.target_triple == "x86_64-pc-windows-msvc"
 local launch_menu = {}
 
 wezterm.on("SpawnCommandInNewWindowInCurrentWorkingDirectory", function(window, pane)
+<<<<<<< Updated upstream
 	current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
 	window:perform_action(wezterm.action{SpawnCommandInNewWindow={
 		domain='CurrentPaneDomain'
@@ -22,13 +23,39 @@ wezterm.on("SplitVerticalInCurrentWorkingDirectory", function(window, pane)
 	window:perform_action(wezterm.action{SplitVertical={
     		domain='CurrentPaneDomain'
   }}, pane)
+=======
+  current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+  window:perform_action(wezterm.action { SpawnCommandInNewWindow = {
+    domain = 'CurrentPaneDomain'
+  } }, pane)
+end)
+
+wezterm.on("SpawnCommandInNewTabInCurrentWorkingDirectory", function(window, pane)
+  current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+  window:perform_action(wezterm.action { SpawnCommandInNewTab = {
+    domain = 'CurrentPaneDomain'
+  } }, pane)
+end)
+
+wezterm.on("SplitVerticalInCurrentWorkingDirectory", function(window, pane)
+  current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+  window:perform_action(wezterm.action { SplitVertical = {
+    domain = 'CurrentPaneDomain'
+  } }, pane)
+>>>>>>> Stashed changes
 end)
 
 wezterm.on("SplitHorizontalCurrentWorkingDirectory", function(window, pane)
   current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+<<<<<<< Updated upstream
   window:perform_action(wezterm.action{SplitHorizontal={
     		domain='CurrentPaneDomain'
   }}, pane) 
+=======
+  window:perform_action(wezterm.action { SplitHorizontal = {
+    domain = 'CurrentPaneDomain'
+  } }, pane)
+>>>>>>> Stashed changes
 end)
 
 for _, dom in ipairs(wsl_domains) do
@@ -36,8 +63,13 @@ for _, dom in ipairs(wsl_domains) do
 end
 
 table.insert(launch_menu, {
+<<<<<<< Updated upstream
     label = 'PowerShell',
     args = { 'powershell.exe', '-NoLogo' }
+=======
+  label = 'PowerShell',
+  args = { 'powershell.exe', '-NoLogo' }
+>>>>>>> Stashed changes
 })
 
 local config = {
@@ -60,13 +92,44 @@ local config = {
   },
 
   keys = {
-    { action = wezterm.action.CopyTo 'Clipboard', mods = 'CTRL|SHIFT', key = 'C' },
-    { action = wezterm.action.DecreaseFontSize, mods = 'CTRL', key = '-' },
-    { action = wezterm.action.IncreaseFontSize, mods = 'CTRL', key = '=' },
-    { action = wezterm.action.Nop, mods = 'ALT', key = 'Enter' },
-    { action = wezterm.action.PasteFrom 'Clipboard', mods = 'CTRL|SHIFT', key = 'V' },
-    { action = wezterm.action.ResetFontSize, mods = 'CTRL', key = '0' },
+    {
+      action = wezterm.action.CopyTo 'Clipboard',
+      mods = 'CTRL|SHIFT',
+      key =
+      'C'
+    },
+    {
+      action = wezterm.action.DecreaseFontSize,
+      mods = 'CTRL',
+      key =
+      '-'
+    },
+    {
+      action = wezterm.action.IncreaseFontSize,
+      mods = 'CTRL',
+      key =
+      '='
+    },
+    {
+      action = wezterm.action.Nop,
+      mods = 'ALT',
+      key =
+      'Enter'
+    },
+    {
+      action = wezterm.action.PasteFrom 'Clipboard',
+      mods = 'CTRL|SHIFT',
+      key =
+      'V'
+    },
+    {
+      action = wezterm.action.ResetFontSize,
+      mods = 'CTRL',
+      key =
+      '0'
+    },
     { action = wezterm.action.ToggleFullScreen, key = 'F11' },
+<<<<<<< Updated upstream
     { action = wezterm.action.ShowDebugOverlay, key = 'L', mods = 'CTRL' },
     { action = wezterm.action.ShowLauncher, key = 'Space', mods = 'CTRL' },
     { action = wezterm.action.CloseCurrentPane { confirm = false }, key = "x", mods = "ALT|SHIFT"},
@@ -83,6 +146,104 @@ local config = {
     { key = "J", mods = "ALT|SHIFT", action = wezterm.action{AdjustPaneSize={"Down", 5}}},
     { key = "K", mods = "ALT|SHIFT", action = wezterm.action{AdjustPaneSize={"Up", 5}}},
     { key = "L", mods = "ALT|SHIFT", action = wezterm.action{AdjustPaneSize={"Right", 5}}},
+=======
+    {
+      action = wezterm.action.ShowDebugOverlay,
+      key = 'L',
+      mods =
+      'CTRL'
+    },
+    {
+      action = wezterm.action.ShowLauncher,
+      key = 'Space',
+      mods =
+      'CTRL'
+    },
+    {
+      action = wezterm.action.CloseCurrentPane { confirm = false },
+      key = "x",
+      mods =
+      "ALT|SHIFT"
+    },
+    {
+      action = wezterm.action.CloseCurrentTab { confirm = false },
+      key = "x",
+      mods =
+      "CTRL|SHIFT"
+    },
+    {
+      action = wezterm.action { EmitEvent = "SpawnCommandInNewWindowInCurrentWorkingDirectory" },
+      key = "n",
+      mods =
+      "CTRL|SHIFT"
+    },
+    {
+      action = wezterm.action { EmitEvent = "SpawnCommandInNewTabInCurrentWorkingDirectory" },
+      key = "t",
+      mods =
+      "CTRL|SHIFT"
+    },
+    {
+      action = wezterm.action { EmitEvent = "SplitVerticalInCurrentWorkingDirectory" },
+      key = "_",
+      mods =
+      "ALT|SHIFT",
+    },
+    {
+      action = wezterm.action { EmitEvent = "SplitHorizontalCurrentWorkingDirectory" },
+      key = "+",
+      mods =
+      "ALT|SHIFT",
+    },
+    {
+      key = "h",
+      mods = "ALT",
+      action =
+          wezterm.action { ActivatePaneDirection = "Left" }
+    },
+    {
+      key = "j",
+      mods = "ALT",
+      action =
+          wezterm.action { ActivatePaneDirection = "Down" }
+    },
+    {
+      key = "k",
+      mods = "ALT",
+      action =
+          wezterm.action { ActivatePaneDirection = "Up" }
+    },
+    {
+      key = "l",
+      mods = "ALT",
+      action =
+          wezterm.action { ActivatePaneDirection = "Right" }
+    },
+    {
+      key = "H",
+      mods = "ALT|SHIFT",
+      action =
+          wezterm.action { AdjustPaneSize = { "Left", 5 } }
+    },
+    {
+      key = "J",
+      mods = "ALT|SHIFT",
+      action =
+          wezterm.action { AdjustPaneSize = { "Down", 5 } }
+    },
+    {
+      key = "K",
+      mods = "ALT|SHIFT",
+      action =
+          wezterm.action { AdjustPaneSize = { "Up", 5 } }
+    },
+    {
+      key = "L",
+      mods = "ALT|SHIFT",
+      action =
+          wezterm.action { AdjustPaneSize = { "Right", 5 } }
+    },
+>>>>>>> Stashed changes
 
   },
   scrollback_lines = 10000,
@@ -97,7 +258,7 @@ local config = {
     top = 1,
     bottom = 0,
   },
-  wsl_domains =  wsl_domains,
+  wsl_domains = wsl_domains,
   launch_menu = launch_menu,
   canonicalize_pasted_newlines = 'None'
 }
@@ -115,3 +276,7 @@ for i = 1, 8 do
 end
 
 return config
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
