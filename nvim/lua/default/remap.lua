@@ -60,6 +60,8 @@ vim.keymap.set("c", "<C-j>", "<Down>")
 vim.keymap.set("c", "<C-k>", "<Up>")
 vim.keymap.set("c", "<C-l>", "<Right>")
 
+vim.keymap.set("n", "<leader>e", '<cmd>:lua vim.diagnostic.open_float(0, { scope = "line" })<CR>')
+
 -- source file
 vim.keymap.set("n", "<leader><leader>", function()
   vim.cmd("so")

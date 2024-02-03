@@ -1,11 +1,10 @@
 return require('packer').startup(function(use)
   use('wbthomason/packer.nvim')
   use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.1',
+    'nvim-telescope/telescope.nvim', tag = '0.1.3',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
   use 'projekt0n/github-nvim-theme'
---use 'lourenci/github-colors'
   use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
   use('nvim-treesitter/playground')
   use('jose-elias-alvarez/null-ls.nvim')
@@ -17,6 +16,7 @@ return require('packer').startup(function(use)
   use('inkarkat/vim-ingo-library')
   use('lewis6991/gitsigns.nvim')
   use('ThePrimeagen/vim-be-good')
+  use('https://git.sr.ht/~whynothugo/lsp_lines.nvim')
   use {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v1.x',
