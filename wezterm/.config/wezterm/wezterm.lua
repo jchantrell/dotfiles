@@ -1,44 +1,33 @@
 local wezterm = require 'wezterm'
-local wsl_domains = wezterm.default_wsl_domains()
-local is_windows = wezterm.target_triple == "x86_64-pc-windows-msvc"
 local launch_menu = {}
 
 wezterm.on("SpawnCommandInNewWindowInCurrentWorkingDirectory", function(window, pane)
-	current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+	current_directory = pane:get_current_working_dir()
 	window:perform_action(wezterm.action{SpawnCommandInNewWindow={
 		domain='CurrentPaneDomain'
   }}, pane)
 end)
 
 wezterm.on("SpawnCommandInNewTabInCurrentWorkingDirectory", function(window, pane)
-	current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+	current_directory = pane:get_current_working_dir()
   window:perform_action(wezterm.action{SpawnCommandInNewTab={
-    domain='CurrentPaneDomain'
+    		domain='CurrentPaneDomain'
   }}, pane)
 end)
 
 wezterm.on("SplitVerticalInCurrentWorkingDirectory", function(window, pane)
-	current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+	current_directory = pane:get_current_working_dir()
 	window:perform_action(wezterm.action{SplitVertical={
-    domain='CurrentPaneDomain'
+    		domain='CurrentPaneDomain'
   }}, pane)
 end)
 
 wezterm.on("SplitHorizontalCurrentWorkingDirectory", function(window, pane)
-  current_directory = pane:get_current_working_dir():gsub('file://desktop', '')
+	current_directory = pane:get_current_working_dir()
   window:perform_action(wezterm.action{SplitHorizontal={
-    domain='CurrentPaneDomain'
+    		domain='CurrentPaneDomain'
   }}, pane) 
 end)
-
-for _, dom in ipairs(wsl_domains) do
-  dom.default_cwd = "~"
-end
-
-table.insert(launch_menu, {
-    label = 'PowerShell',
-    args = { 'powershell.exe', '-NoLogo' }
-})
 
 local config = {
   adjust_window_size_when_changing_font_size = false,
@@ -49,6 +38,7 @@ local config = {
   font_size = 17,
   force_reverse_video_cursor = true,
   hide_tab_bar_if_only_one_tab = true,
+  font = wezterm.font { family = 'Comic Mono' },
 
   keys = {
     { action = wezterm.action.CopyTo 'Clipboard', mods = 'CTRL|SHIFT', key = 'C' },
