@@ -38,7 +38,6 @@ local config = {
   font_size = 17,
   force_reverse_video_cursor = true,
   hide_tab_bar_if_only_one_tab = true,
-  font = wezterm.font { family = 'Comic Mono' },
 
   keys = {
     { action = wezterm.action.CopyTo 'Clipboard', mods = 'CTRL|SHIFT', key = 'C' },
