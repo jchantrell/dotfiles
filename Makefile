@@ -1,6 +1,7 @@
 all:
-	stow --verbose --target=$$HOME --restow */
+	stow --verbose --restow --target ~/.config .
 
 delete:
-	stow --verbose --target=$$HOME --delete */
+	stow --verbose --delete --target ~/.config .
+
 
