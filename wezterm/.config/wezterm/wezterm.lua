@@ -2,7 +2,6 @@ local wezterm = require("wezterm")
 local launch_menu = {}
 
 wezterm.on("SpawnCommandInNewWindowInCurrentWorkingDirectory", function(window, pane)
-	current_directory = pane:get_current_working_dir()
 	window:perform_action(
 		wezterm.action({ SpawnCommandInNewWindow = {
 			domain = "CurrentPaneDomain",
@@ -12,7 +11,6 @@ wezterm.on("SpawnCommandInNewWindowInCurrentWorkingDirectory", function(window, 
 end)
 
 wezterm.on("SpawnCommandInNewTabInCurrentWorkingDirectory", function(window, pane)
-	current_directory = pane:get_current_working_dir()
 	window:perform_action(
 		wezterm.action({ SpawnCommandInNewTab = {
 			domain = "CurrentPaneDomain",
@@ -22,7 +20,6 @@ wezterm.on("SpawnCommandInNewTabInCurrentWorkingDirectory", function(window, pan
 end)
 
 wezterm.on("SplitVerticalInCurrentWorkingDirectory", function(window, pane)
-	current_directory = pane:get_current_working_dir()
 	window:perform_action(
 		wezterm.action({ SplitVertical = {
 			domain = "CurrentPaneDomain",
@@ -32,7 +29,6 @@ wezterm.on("SplitVerticalInCurrentWorkingDirectory", function(window, pane)
 end)
 
 wezterm.on("SplitHorizontalCurrentWorkingDirectory", function(window, pane)
-	current_directory = pane:get_current_working_dir()
 	window:perform_action(
 		wezterm.action({ SplitHorizontal = {
 			domain = "CurrentPaneDomain",
@@ -114,7 +110,6 @@ local config = {
 		top = 1,
 		bottom = 0,
 	},
-	wsl_domains = wsl_domains,
 	launch_menu = launch_menu,
 	canonicalize_pasted_newlines = "None",
 }
