@@ -26,6 +26,9 @@ alias vim="nvim"
 # zoxide
 eval "$(zoxide init zsh)"
 
+# go
+export PATH=$PATH:/usr/local/go/bin
+
 # pnpm
 export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
