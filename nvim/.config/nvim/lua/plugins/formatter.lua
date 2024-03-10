@@ -4,36 +4,36 @@ return { -- autoformat
     'tpope/vim-sleuth', -- detect tabstop and shiftwidth
   },
   opts = {
-    notify_on_error = false,
+    notify_on_error = true,
     async = true,
-    lsp_fallback = true,
     format_on_save = {
       timeout_ms = 500,
-      lsp_fallback = true,
+      lsp_fallback = false,
     },
     formatters_by_ft = {
-      lua = { 'stylua' },
-      go = { 'goimports', 'gofmt' },
-      javascript = { { 'prettierd', 'prettier' } },
-      astro = { 'prettierd', 'prettier' },
+      astro = { 'prettierd' },
       css = { 'prettier' },
+      go = { 'goimports', 'gofmt' },
+      graphql = { 'prettierd' },
+      html = { 'jq', 'prettierd' },
+      json = { 'jq', 'prettierd' },
+      jsonc = { 'jq', 'prettierd' },
+      javascript = { { 'prettierd' } },
+      jsx = { { 'prettierd' } },
+      lua = { 'stylua' },
+      md = { { 'prettierd' } },
+      mdx = { { 'prettierd' } },
+      typescript = { { 'prettierd' } },
+      typescriptreact = { { 'prettierd' } },
+      yaml = { 'prettierd' },
+      yml = { 'prettierd' },
     },
     formatters = {
-      prettier = {
-        args = function(self, ctx)
-          -- tailwind + astro arent natively supported by prettier
-          if vim.endswith(ctx.filename, '.astro') then
-            return {
-              '--stdin-filepath',
-              '$FILENAME',
-              '--plugin',
-              'prettier-plugin-astro',
-              '--plugin',
-              'prettier-plugin-tailwindcss',
-            }
-          end
-          return { '--stdin-filepath', '$FILENAME', '--plugin', 'prettier-plugin-tailwindcss' }
-        end,
+      prettierd = {
+        stdin = true,
+        env = {
+          PRETTIERD_DEFAULT_CONFIG = '/home/joel/.prettierrc',
+        },
       },
     },
   },

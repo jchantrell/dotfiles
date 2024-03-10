@@ -40,7 +40,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH=$BUN_INSTALL/bin:$PATH
 
 # prettier
-export PRETTIERD_DEFAULT_CONFIG="$HOME/.config/prettier/.prettierrc"
+export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
 
 # theme
 source ~/powerlevel10k/powerlevel10k.zsh-theme
