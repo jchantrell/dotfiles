@@ -79,6 +79,21 @@ local keys = {
 	{ key = "L", mods = "ALT|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
 }
 
+-- c library for random needs to be seeded
+math.randomseed(os.time())
+for i = 1, 3 do
+	math.random(10000, 65000)
+end
+
+local randomBackground = function()
+	local fileNames = {}
+	for dir in io.popen([[ls -pa ~/pics/background | grep -v /]]):lines() do
+		table.insert(fileNames, dir)
+	end
+	local num = math.floor(math.random() * #fileNames) + 1
+	return string.gsub("pics/background/$file", "%$(%w+)", fileNames[num])
+end
+
 local config = {
 	adjust_window_size_when_changing_font_size = false,
 	audible_bell = "Disabled",
@@ -92,9 +107,9 @@ local config = {
 	background = {
 		{
 			source = {
-				File = "/home/joel/pics/bg.jpeg",
+				File = randomBackground(),
 			},
-			hsb = { brightness = 0.2 },
+			hsb = { brightness = 0.1 },
 		},
 	},
 	scrollback_lines = 10000,
