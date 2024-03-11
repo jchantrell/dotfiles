@@ -24,6 +24,7 @@ alias python="python3"
 alias v="nvim"
 alias vi="nvim"
 alias vim="nvim"
+alias rg="rg --hidden --glob '!.git'"
 
 # go
 export PATH=$PATH:/usr/local/go/bin
