@@ -1,0 +1,35 @@
+.shell powershell
+
+# reload config
+ctrl + o                 : taskkill /f /im whkd.exe; Start-Process whkd -WindowStyle hidden
+ctrl + shift + o         : komorebic reload-configuration
+
+# browser
+ctrl + 1			: start chrome
+# terminal
+ctrl + 2			: start wezterm-gui
+# excalidraw
+ctrl + 3			: start chrome "https://excalidraw.com" 
+# obsidian
+ctrl + 4			: Start-Process 'obsidian://open' 
+# slack
+ctrl + 5			: Start-Process 'slack://open' 
+
+# focus
+ctrl + left			: komorebic focus left
+ctrl + down			: komorebic focus down
+ctrl + up			: komorebic focus up
+ctrl + right			: komorebic focus right
+
+# move
+ctrl + shift + left		: komorebic move left
+ctrl + shift + down		: komorebic move down
+ctrl + shift + up		: komorebic move up
+ctrl + shift + right		: komorebic move right
+ctrl + shift + return		: komorebic promote
+
+# misc
+alt + t				: komorebic toggle-float
+alt + shift + f			: komorebic toggle-monocle
+alt + shift + r			: komorebic retile
+alt + p				: komorebic toggle-pause

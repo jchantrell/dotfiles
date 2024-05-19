@@ -1,0 +1,55 @@
+{
+	"$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.25/schema.json",
+	"app_specific_configuration_path": "$Env:USERPROFILE/applications.yaml",
+	"window_hiding_behaviour": "Cloak",
+	"cross_monitor_move_behaviour": "Insert",
+	"default_workspace_padding": 5,
+	"default_container_padding": 5,
+	"border_width": 5,
+	"border_offset": -1,
+	"active_window_border": true,
+	"active_window_border_colours": {
+		"single": {
+			"r":9,
+			"g": 156,
+			"b": 92
+		},
+		"stack": {
+			"r": 255,
+			"g": 255,
+			"b": 255
+		},
+		"monocle": {
+			"r": 255,
+			"g": 255,
+			"b": 255
+		}
+	},
+	"stackbar": {
+		"height": 40,
+		"mode": "Never",
+		"tabs": {
+			"width": 300,
+			"focused_text": "#00a542",
+			"unfocused_text": "#b3b3b3",
+			"background": "#141414"
+		}
+	},
+	"monitors": [
+		{
+			"workspaces": [
+				{
+					"name": "personal",
+					"custom_layout": "C:\\Users\\Joel\\.config\\komorebi\\layout\\default.json"
+				}
+			]
+		},
+		{
+			"workspaces": [
+				{
+					"name": "default"
+				}
+			]
+		}
+	]
+}
