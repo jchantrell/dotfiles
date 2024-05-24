@@ -1,4 +1,5 @@
 local wezterm = require("wezterm")
+local wsl_domains = wezterm.default_wsl_domains()
 local launch_menu = {}
 
 wezterm.on("SpawnCommandInNewWindowInCurrentWorkingDirectory", function(window, pane)
@@ -37,6 +38,28 @@ wezterm.on("SplitHorizontalCurrentWorkingDirectory", function(window, pane)
 	)
 end)
 
+for idx, dom in ipairs(wsl_domains) do
+	docker = string.find(dom.name, "docker")
+	if docker == nil then
+		table.insert(launch_menu, {
+			label = dom.distribution,
+			domain = { DomainName = dom.name },
+		})
+	end
+end
+
+table.insert(launch_menu, {
+	label = "PowerShell",
+	domain = { DomainName = "local" },
+	args = { "pwsh.exe", "-NoLogo" },
+})
+
+table.insert(launch_menu, {
+	label = "CMD",
+	domain = { DomainName = "local" },
+	args = { "cmd.exe", "-NoLogo" },
+})
+
 local keys = {
 	{ action = wezterm.action.CopyTo("Clipboard"), mods = "CTRL|SHIFT", key = "C" },
 	{ action = wezterm.action.DecreaseFontSize, mods = "CTRL", key = "-" },
@@ -46,18 +69,19 @@ local keys = {
 	{ action = wezterm.action.ResetFontSize, mods = "CTRL", key = "0" },
 	{ action = wezterm.action.ToggleFullScreen, key = "F11" },
 	{ action = wezterm.action.ShowDebugOverlay, key = "L", mods = "CTRL" },
-	{ action = wezterm.action.ShowLauncher, key = "Space", mods = "CTRL" },
+	{ action = wezterm.action.ShowLauncher, key = "Space", mods = "ALT|CTRL|SHIFT" },
+	{ action = wezterm.action.ShowLauncherArgs({ flags = "LAUNCH_MENU_ITEMS" }), key = "Space", mods = "CTRL" },
 	{ action = wezterm.action.CloseCurrentPane({ confirm = false }), key = "x", mods = "ALT|SHIFT" },
 	{ action = wezterm.action.CloseCurrentTab({ confirm = false }), key = "x", mods = "CTRL|SHIFT" },
 	{
 		action = wezterm.action({ EmitEvent = "SpawnCommandInNewWindowInCurrentWorkingDirectory" }),
 		key = "n",
-		mods = "CTRL|SHIFT",
+		mods = "ALT|SHIFT",
 	},
 	{
 		action = wezterm.action({ EmitEvent = "SpawnCommandInNewTabInCurrentWorkingDirectory" }),
 		key = "t",
-		mods = "CTRL|SHIFT",
+		mods = "ALT|SHIFT",
 	},
 	{
 		action = wezterm.action({ EmitEvent = "SplitVerticalInCurrentWorkingDirectory" }),
@@ -79,21 +103,6 @@ local keys = {
 	{ key = "L", mods = "ALT|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
 }
 
--- c library for random needs to be seeded
-math.randomseed(os.time())
-for i = 1, 3 do
-	math.random(10000, 65000)
-end
-
-local randomBackground = function()
-	local fileNames = {}
-	for dir in io.popen([[ls -pa ~/pics/background | grep -v /]]):lines() do
-		table.insert(fileNames, dir)
-	end
-	local num = math.floor(math.random() * #fileNames) + 1
-	return string.gsub("pics/background/$file", "%$(%w+)", fileNames[num])
-end
-
 local config = {
 	adjust_window_size_when_changing_font_size = false,
 	audible_bell = "Disabled",
@@ -104,18 +113,12 @@ local config = {
 	force_reverse_video_cursor = true,
 	hide_tab_bar_if_only_one_tab = true,
 	keys = keys,
-	background = {
-		{
-			source = {
-				File = randomBackground(),
-			},
-			hsb = { brightness = 0.1 },
-		},
-	},
+	window_background_opacity = 0.9,
 	scrollback_lines = 10000,
 	show_update_window = false,
 	use_dead_keys = false,
 	unicode_version = 14,
+	window_decorations = "RESIZE",
 	window_close_confirmation = "NeverPrompt",
 	window_padding = {
 		left = 0,
@@ -124,15 +127,12 @@ local config = {
 		bottom = 0,
 	},
 	launch_menu = launch_menu,
+	wsl_domains = wsl_domains,
 	canonicalize_pasted_newlines = "None",
+	default_prog = { "pwsh.exe", "-NoLogo" },
 }
 
 for i = 1, 8 do
-	table.insert(config.keys, {
-		key = tostring(i),
-		mods = "CTRL|SHIFT",
-		action = wezterm.action.ActivateTab(i - 1),
-	})
 	table.insert(config.keys, {
 		key = "F" .. tostring(i),
 		action = wezterm.action.ActivateTab(i - 1),
