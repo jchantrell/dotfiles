@@ -149,6 +149,9 @@ in {
     source = treesitterWithGrammars;
   };
 
+  home.file.".ssh/allowed_signers".text =
+    "* ${builtins.readFile /home/${username}/.ssh/id_ed25519.pub}";
+
   programs = {
     home-manager.enable = true;
     nix-index.enable = true;
@@ -216,6 +219,10 @@ in {
         diff = {
           colorMoved = "default";
         };
+        commit.gpgsign = true;
+        gpg.format = "ssh";
+        gpg.ssh.allowedSignersFile = "~/.ssh/allowed_signers";
+        user.signingkey = "~/.ssh/id_ed25519.pub";
       };
     };
 

@@ -31,9 +31,9 @@
       "wheel"
       "docker"
     ];
-    # openssh.authorizedKeys.keys = [
-    #   "ssh-rsa ..."
-    # ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKXboNrsbtK6VjUc7+4y46/3zxmNFM9FtYCQhdhUmhEN"
+    ];
   };
 
   environment.systemPackages = [

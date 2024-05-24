@@ -1,7 +1,7 @@
 #! /usr/bin/env nix-shell
 #! nix-shell -i bash -p patchelf
 
-sudo nixos-rebuild switch --flake .
+sudo nixos-rebuild switch --flake . --impure
 
 for lang in $(ls ~/.local/share/nvim/mason/packages)
 do
