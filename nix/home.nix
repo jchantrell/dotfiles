@@ -43,6 +43,7 @@
     go
     lua
     nodejs
+    bun
     python3
     typescript
 
@@ -169,19 +170,9 @@ in {
       ];
     };
 
-    starship.enable = true;
-    starship.settings = {
-      aws.disabled = true;
-      gcloud.disabled = true;
-      kubernetes.disabled = false;
-      git_branch.style = "242";
-      directory.style = "blue";
-      directory.truncate_to_repo = false;
-      directory.truncation_length = 8;
-      python.disabled = true;
-      ruby.disabled = true;
-      hostname.ssh_only = false;
-      hostname.style = "bold green";
+    starship = {
+      enable = true;
+      settings = pkgs.lib.importTOML ../starship/starship.toml;
     };
 
     fzf.enable = true;
@@ -282,6 +273,7 @@ in {
 
       envExtra = ''
         export PATH=$PATH:$HOME/.local/bin
+        export PRETTIERD_DEFAULT_CONFIG="$HOME/dotfiles/prettier/.prettierrc"
       '';
 
       initExtra = ''
@@ -297,9 +289,6 @@ in {
 
         # Complete . and .. special directories
         zstyle ':completion:*' special-dirs true
-
-        zstyle ':completion:*' list-colors ""
-        zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#) ([0-9a-z-]#)*=01;34=0=01'
 
         # disable named-directories autocompletion
         zstyle ':completion:*:cd:*' tag-order local-directories directory-stack path-directories

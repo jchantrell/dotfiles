@@ -64,11 +64,11 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup("plugins", {
-   dev = {
-        path = "~/.local/share/nvim/nix",
-        fallback = false,
-    },
+require('lazy').setup('plugins', {
+  dev = {
+    path = '~/.local/share/nvim/nix',
+    fallback = false,
+  },
   require 'plugins.comment',
   require 'plugins.gitsigns',
   require 'plugins.which-key',
