@@ -6,6 +6,5 @@
   "endOfLine": "lf",
   "singleQuote": true,
   "jsxSingleQuote": true,
-  "semi": true,
-  "plugins": ["prettier-plugin-astro"],
+  "semi": true
 }
