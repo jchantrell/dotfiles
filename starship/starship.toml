@@ -1,0 +1,187 @@
+format = """
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$line_break\
+$character"""
+
+right_format = """
+$docker_context\
+$package\
+$c\
+$cmake\
+$cobol\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$golang\
+$haskell\
+$java\
+$julia\
+$kotlin\
+$lua\
+$nodejs\
+$ocaml\
+$perl\
+$php\
+$pulumi\
+$python\
+$ruby\
+$rust\
+$swift\
+$terraform\
+$zig\
+$buf\
+$conda\
+$aws\
+$gcloud\
+$openstack\
+$azure\
+"""
+
+[directory]
+read_only = " ro"
+style = "bright-green"
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+[git_branch]
+format = "[$branch]($style)"
+style = "bright-black"
+
+[git_status]
+format = "[[(*$conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed)]($style)"
+style = "cyan"
+conflicted = "​"
+untracked = "​"
+modified = "​"
+staged = "​"
+renamed = "​"
+deleted = "​"
+stashed = "≡"
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+
+[aws]
+symbol = "aws "
+
+[azure]
+symbol = "az "
+
+[bun]
+symbol = "bun "
+
+[c]
+symbol = "C "
+
+[cobol]
+symbol = "cobol "
+
+[conda]
+symbol = "conda "
+
+[cmake]
+symbol = "cmake "
+
+[dart]
+symbol = "dart "
+
+[deno]
+symbol = "deno "
+
+[dotnet]
+symbol = ".NET "
+
+[docker_context]
+symbol = "docker "
+
+[elixir]
+symbol = "exs "
+
+[elm]
+symbol = "elm "
+
+[gcloud]
+symbol = "gcp "
+
+[golang]
+symbol = "go "
+
+[gradle]
+symbol = "gradle "
+
+[java]
+symbol = "java "
+
+[julia]
+symbol = "jl "
+
+[kotlin]
+symbol = "kt "
+
+[lua]
+symbol = "lua "
+
+[nodejs]
+symbol = "nodejs "
+
+[memory_usage]
+symbol = "memory "
+
+[nix_shell]
+symbol = "nix "
+
+[ocaml]
+symbol = "ml "
+
+[package]
+symbol = "pkg "
+
+[perl]
+symbol = "pl "
+
+[php]
+symbol = "php "
+
+[pulumi]
+symbol = "pulumi "
+
+[python]
+symbol = "py "
+
+[ruby]
+symbol = "rb "
+
+[rust]
+symbol = "rs "
+
+[status]
+symbol = "[x](bold red) "
+
+[sudo]
+symbol = "sudo "
+
+[swift]
+symbol = "swift "
+
+[terraform]
+symbol = "terraform "
+
+[zig]
+symbol = "zig "
