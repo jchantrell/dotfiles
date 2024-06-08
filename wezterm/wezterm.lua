@@ -1,5 +1,6 @@
 local wezterm = require("wezterm")
 local wsl_domains = wezterm.default_wsl_domains()
+local target_triple = wezterm.target_triple
 local launch_menu = {}
 
 wezterm.on("SpawnCommandInNewWindowInCurrentWorkingDirectory", function(window, pane)
@@ -38,28 +39,6 @@ wezterm.on("SplitHorizontalCurrentWorkingDirectory", function(window, pane)
 	)
 end)
 
-for idx, dom in ipairs(wsl_domains) do
-	docker = string.find(dom.name, "docker")
-	if docker == nil then
-		table.insert(launch_menu, {
-			label = dom.distribution,
-			domain = { DomainName = dom.name },
-		})
-	end
-end
-
-table.insert(launch_menu, {
-	label = "PowerShell",
-	domain = { DomainName = "local" },
-	args = { "pwsh.exe", "-NoLogo" },
-})
-
-table.insert(launch_menu, {
-	label = "CMD",
-	domain = { DomainName = "local" },
-	args = { "cmd.exe", "-NoLogo" },
-})
-
 local keys = {
 	{ action = wezterm.action.CopyTo("Clipboard"), mods = "CTRL|SHIFT", key = "C" },
 	{ action = wezterm.action.DecreaseFontSize, mods = "CTRL", key = "-" },
@@ -93,14 +72,14 @@ local keys = {
 		key = "+",
 		mods = "ALT|SHIFT",
 	},
-	{ key = "h", mods = "ALT", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
-	{ key = "j", mods = "ALT", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
-	{ key = "k", mods = "ALT", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
-	{ key = "l", mods = "ALT", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
-	{ key = "H", mods = "ALT|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
-	{ key = "J", mods = "ALT|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
-	{ key = "K", mods = "ALT|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
-	{ key = "L", mods = "ALT|SHIFT", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
+	{ key = "LeftArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Left" }) },
+	{ key = "DownArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Down" }) },
+	{ key = "UpArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Up" }) },
+	{ key = "RightArrow", mods = "SHIFT", action = wezterm.action({ ActivatePaneDirection = "Right" }) },
+	{ key = "LeftArrow", mods = "CTRL", action = wezterm.action({ AdjustPaneSize = { "Left", 5 } }) },
+	{ key = "DownArrow", mods = "CTRL", action = wezterm.action({ AdjustPaneSize = { "Down", 5 } }) },
+	{ key = "UpArrow", mods = "CTRL", action = wezterm.action({ AdjustPaneSize = { "Up", 5 } }) },
+	{ key = "RightArrow", mods = "CTRL", action = wezterm.action({ AdjustPaneSize = { "Right", 5 } }) },
 }
 
 local config = {
@@ -113,7 +92,6 @@ local config = {
 	force_reverse_video_cursor = true,
 	hide_tab_bar_if_only_one_tab = true,
 	keys = keys,
-	window_background_opacity = 0.9,
 	scrollback_lines = 10000,
 	show_update_window = false,
 	use_dead_keys = false,
@@ -126,11 +104,42 @@ local config = {
 		top = 1,
 		bottom = 0,
 	},
-	launch_menu = launch_menu,
-	wsl_domains = wsl_domains,
 	canonicalize_pasted_newlines = "None",
-	default_prog = { "pwsh.exe", "-NoLogo" },
 }
+
+if target_triple == "x86_64-pc-windows-msvc" then
+	for idx, dom in ipairs(wsl_domains) do
+		docker = string.find(dom.name, "docker")
+		if docker == nil then
+			table.insert(launch_menu, {
+				label = dom.distribution,
+				domain = { DomainName = dom.name },
+			})
+		end
+	end
+	table.insert(launch_menu, {
+		label = "PowerShell",
+		domain = { DomainName = "local" },
+		args = { "pwsh.exe", "-NoLogo" },
+	})
+	table.insert(launch_menu, {
+		label = "CMD",
+		domain = { DomainName = "local" },
+		args = { "cmd.exe", "-NoLogo" },
+	})
+	config.wsl_domains = wsl_domains
+	config.default_prog = { "pwsh.exe", "-NoLogo" }
+end
+
+if target_triple == "x86_64-unknown-linux-gnu" then
+	table.insert(launch_menu, {
+		label = "Home",
+		domain = { DomainName = "local" },
+		args = { "cd" },
+	})
+end
+
+config.launch_menu = launch_menu
 
 for i = 1, 8 do
 	table.insert(config.keys, {
