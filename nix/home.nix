@@ -59,6 +59,9 @@
     ccls # c / c++
     gopls
     nodePackages.typescript-language-server
+    nodePackages."@astrojs/language-server"
+#    nodePackages.astro
+    nodePackages.pnpm
     pkgs.nodePackages.vscode-langservers-extracted # html, css, json, eslint
     nodePackages.yaml-language-server
     sumneko-lua-language-server
@@ -81,6 +84,7 @@
   ];
 
    treesitterWithGrammars = (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+    p.astro
     p.bash
     p.comment
     p.css
