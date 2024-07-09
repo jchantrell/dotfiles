@@ -3,6 +3,7 @@
   pkgs,
   username,
   nix-index-database,
+  lib,
   ...
 }: let
   unstable-packages = with pkgs.unstable; [
@@ -33,12 +34,10 @@
   ];
 
   stable-packages = with pkgs; [
-
-    # key tools
-    gh # for bootstrapping
+    gh
     just
 
-    # core languages
+    # languages
     rustup
     go
     lua
@@ -47,20 +46,18 @@
     python3
     typescript
 
-    # rust stuff
     cargo-cache
     cargo-expand
 
-    # local dev stuf
+    # local dev
     mkcert
     httpie
 
-    # language servers
+    # lsps
     ccls # c / c++
     gopls
     nodePackages.typescript-language-server
     nodePackages."@astrojs/language-server"
-#    nodePackages.astro
     nodePackages.pnpm
     pkgs.nodePackages.vscode-langservers-extracted # html, css, json, eslint
     nodePackages.yaml-language-server
@@ -70,20 +67,20 @@
 
     # formatters and linters
     alejandra # nix
+    statix # nix
+    deadnix # nix
     black # python
     ruff # python
-    deadnix # nix
     golangci-lint
     lua52Packages.luacheck
     nodePackages.prettier
     shellcheck
     shfmt
-    statix # nix
     sqlfluff
     tflint
   ];
 
-   treesitterWithGrammars = (pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
+  treesitterWithGrammars = pkgs.vimPlugins.nvim-treesitter.withPlugins (p: [
     p.astro
     p.bash
     p.comment
@@ -110,7 +107,7 @@
     p.typescript
     p.vue
     p.yaml
-  ]));
+  ]);
 
   treesitter-parsers = pkgs.symlinkJoin {
     name = "treesitter-parsers";
@@ -121,7 +118,7 @@ in {
     nix-index-database.hmModules.nix-index
   ];
 
-  home.stateVersion = "22.11";
+  home.stateVersion = "23.11";
 
   home = {
     username = "${username}";
@@ -134,14 +131,13 @@ in {
   home.packages =
     stable-packages
     ++ unstable-packages
-    ++
-    [
+    ++ [
       # pkgs.some-package
       # pkgs.unstable.some-other-package
     ];
 
   home.file."./.config/nvim/" = {
-    source = ../nvim;
+    source = ../../nvim;
     recursive = true;
   };
 
@@ -154,8 +150,7 @@ in {
     source = treesitterWithGrammars;
   };
 
-  home.file.".ssh/allowed_signers".text =
-    "* ${builtins.readFile /home/${username}/.ssh/id_ed25519.pub}";
+  home.file.".ssh/allowed_signers".text = "* ${builtins.readFile /home/${username}/.ssh/id_ed25519.pub}";
 
   programs = {
     home-manager.enable = true;
@@ -176,7 +171,7 @@ in {
 
     starship = {
       enable = true;
-      settings = pkgs.lib.importTOML ../starship/starship.toml;
+      settings = pkgs.lib.importTOML ../../starship/starship.toml;
     };
 
     fzf.enable = true;

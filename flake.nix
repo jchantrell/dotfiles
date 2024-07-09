@@ -17,7 +17,6 @@
 
   outputs = inputs:
     with inputs; let
-
       nixpkgsWithOverlays = with inputs; rec {
         config = {
           allowUnfree = true;
@@ -52,12 +51,11 @@
 
       mkNixosConfiguration = {
         system ? "x86_64-linux",
-        hostname,
         username,
         args ? {},
         modules,
       }: let
-        specialArgs = argDefaults // {inherit hostname username;} // args;
+        specialArgs = argDefaults // {inherit username;} // args;
       in
         nixpkgs.lib.nixosSystem {
           inherit system specialArgs;
@@ -72,11 +70,10 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.alejandra;
 
       nixosConfigurations.helios = mkNixosConfiguration {
-        hostname = "helios";
         username = "joel";
         modules = [
           nixos-wsl.nixosModules.wsl
-          ./nix/wsl.nix
+          ./nix/machines/helios.nix
         ];
       };
     };
