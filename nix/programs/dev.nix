@@ -260,6 +260,11 @@ in {
         refresh = "source ${config.home.homeDirectory}/.zshrc";
         show_path = "echo $PATH | tr ':' '\n'";
 
+        v="nvim";
+        vi="nvim";
+        vim="nvim";
+        rg="rg --hidden --glob '!.git'";
+
         gapa = "git add --patch";
         grpa = "git reset --patch";
         gst = "git status";
