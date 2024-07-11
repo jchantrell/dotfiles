@@ -228,12 +228,18 @@ in {
       history.ignoreDups = true;
       history.ignoreSpace = true;
       historySubstringSearch.enable = true;
+      syntaxHighlighting.enable = true;
+
+      zplug = {
+        plugins = [
+          {
+            name = "zsh-users/zsh-syntax-highlighting";
+            tags = [ defer:2];
+          }
+        ];
+      };
 
       plugins = [
-        {
-          name = "fast-syntax-highlighting";
-          src = "${pkgs.zsh-fast-syntax-highlighting}/share/zsh/site-functions";
-        }
         {
           name = "zsh-nix-shell";
           file = "nix-shell.plugin.zsh";
@@ -262,7 +268,7 @@ in {
         gph = "git push -u origin HEAD";
         gco = "git checkout";
         gcob = "git checkout -b";
-        gcm = "git checkout master";
+        gcm = "git checkout main";
         gcd = "git checkout develop";
 
         pbcopy = "/mnt/c/Windows/System32/clip.exe";
@@ -280,9 +286,8 @@ in {
         bindkey '^n' history-search-forward
         bindkey '^e' end-of-line
         bindkey '^w' forward-word
+        bindkey '^b' backward-word
         bindkey "^[[3~" delete-char
-        bindkey ";5C" forward-word
-        bindkey ";5D" backward-word
 
         zstyle ':completion:*:*:*:*:*' menu select
 

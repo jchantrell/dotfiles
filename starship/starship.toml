@@ -46,12 +46,17 @@ $openstack\
 $azure\
 """
 
+add_newline = false
+continuation_prompt = '▶▶ '
+
+[line_break]
+disabled = false
+
 [directory]
 read_only = " ro"
-style = "bright-green"
 
 [character]
-success_symbol = "[❯](purple)"
+success_symbol = "[❯](green)"
 error_symbol = "[❯](red)"
 vimcmd_symbol = "[❮](green)"
 
