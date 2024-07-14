@@ -81,6 +81,7 @@ require('lazy').setup('plugins', {
   require 'plugins.treesitter',
   require 'plugins.harpoon',
   require 'plugins.neo-tree',
+  require 'plugins.visual-multi',
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {

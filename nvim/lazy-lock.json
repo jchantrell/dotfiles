@@ -115,6 +115,10 @@
 		"branch": "master",
 		"commit": "1cc4557420f215d02c4d2645a748a816c220e99b"
 	},
+	"vim-visual-multi": {
+		"branch": "master",
+		"commit": "38b0e8d94a5499ccc17d6159763d32c79f53417b"
+	},
 	"which-key.nvim": {
 		"branch": "main",
 		"commit": "30cf839c82bcc0f90be951f8834c256c1cdc295c"
