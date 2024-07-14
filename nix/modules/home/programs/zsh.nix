@@ -73,6 +73,7 @@
 
       envExtra = ''
         export PATH=$PATH:$HOME/.local/bin
+        export PATH=$PATH:$HOME/go/bin
         export PRETTIERD_DEFAULT_CONFIG="$HOME/dotfiles/prettier/.prettierrc"
       '';
 

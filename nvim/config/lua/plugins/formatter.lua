@@ -13,7 +13,7 @@ return { -- autoformat
     formatters_by_ft = {
       astro = { 'biome', 'prettierd' },
       css = { 'biome', 'prettierd' },
-      go = { 'goimports', 'gofmt' },
+      go = { 'gofmt' },
       graphql = { 'biome', 'prettierd' },
       html = { 'biome', 'prettierd' },
       json = { 'biome', 'prettierd' },
