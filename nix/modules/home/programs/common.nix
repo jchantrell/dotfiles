@@ -11,6 +11,7 @@ let
     bottom
     coreutils
     curl
+    devenv
     du-dust
     fd
     findutils
@@ -72,6 +73,7 @@ let
     sqlfluff # sql
     tflint # terraform
     prettierd # fast prettier
+    biome # prettier alternative
 
     # misc
     nodePackages.pnpm # npm alternative

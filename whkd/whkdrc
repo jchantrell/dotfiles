@@ -9,11 +9,11 @@ ctrl + 1			: start chrome
 # terminal
 ctrl + 2			: start wezterm-gui
 # excalidraw
-ctrl + 3			: start chrome "https://excalidraw.com" 
+ctrl + 3			: start chrome "https://excalidraw.com"
 # obsidian
-ctrl + 4			: Start-Process 'obsidian://open' 
+ctrl + 4			: Start-Process 'obsidian://open'
 # slack
-ctrl + 5			: Start-Process 'slack://open' 
+ctrl + 5			: Start-Process 'slack://open'
 
 # focus
 ctrl + left			: komorebic focus left

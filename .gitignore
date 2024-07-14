@@ -1,3 +1,5 @@
 wslu/
 nvim/plugin/
 .nixd.json
+.pre-commit-config.yaml
+.devenv.flake.nix

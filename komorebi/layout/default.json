@@ -1,9 +1,9 @@
 [
-  {
-    "column": "Primary"
-  },
-  {
-    "column": "Tertiary",
-    "configuration": "Horizontal"
-  }
+	{
+		"column": "Primary"
+	},
+	{
+		"column": "Tertiary",
+		"configuration": "Horizontal"
+	}
 ]
