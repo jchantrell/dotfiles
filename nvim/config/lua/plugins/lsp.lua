@@ -43,36 +43,8 @@ return { -- lsp
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    local servers = {
-      gopls = {},
-      pyright = {},
-      rust_analyzer = {},
-      lua_ls = {
-        settings = {
-          Lua = {
-            runtime = { version = 'LuaJIT' },
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                '${3rd}/luv/library',
-                unpack(vim.api.nvim_get_runtime_file('', true)),
-              },
-            },
-            completion = {
-              callSnippet = 'Replace',
-            },
-          },
-        },
-      },
-    }
-
     require('mason').setup()
     local ensure_installed = vim.tbl_keys(servers or {})
-    vim.list_extend(ensure_installed, {
-      'stylua',
-      'gopls',
-      'prettierd',
-    })
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
     require('mason-lspconfig').setup {
       handlers = {

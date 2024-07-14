@@ -66,8 +66,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins', {
   dev = {
-    path = '~/.local/share/nvim/nix',
-    fallback = false,
+    path = '~/workspace',
+    fallback = true,
   },
   require 'plugins.comment',
   require 'plugins.gitsigns',
