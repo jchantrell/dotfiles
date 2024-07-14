@@ -1,14 +1,6 @@
+{ lib, pkgs, ... }:
 {
-  inputs,
-  lib,
-  pkgs,
-  config,
-  ...
-}:
-{
-  imports = [
-    ../common
-  ] ++ lib.snowfall.fs.get-non-default-nix-files ./.;
+  imports = [ ../common ] ++ lib.snowfall.fs.get-non-default-nix-files ./.;
 
   options = {
     my.configDir = lib.mkOption {
@@ -17,21 +9,20 @@
       description = "Location of the nix config directory (this repo)";
     };
   };
-  
 
   config = {
     system.stateVersion = "24.11";
     hardware.enableAllFirmware = true;
     home-manager = {
-	    backupFileExtension = "hm.old";
+      backupFileExtension = "hm.old";
 
-	    useGlobalPkgs = true;
-	    useUserPackages = true;
+      useGlobalPkgs = true;
+      useUserPackages = true;
 
     };
 
-    environment.pathsToLink = ["/share/zsh"];
-    environment.shells = [pkgs.zsh];
+    environment.pathsToLink = [ "/share/zsh" ];
+    environment.shells = [ pkgs.zsh ];
     environment.enableAllTerminfo = true;
     security.sudo.wheelNeedsPassword = false;
 

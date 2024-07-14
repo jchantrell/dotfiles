@@ -29,16 +29,17 @@
     };
   };
 
-   outputs = inputs:
-     inputs.snowfall-lib.mkFlake {
-       inherit inputs;
-       src = ./.;
+  outputs =
+    inputs:
+    inputs.snowfall-lib.mkFlake {
+      inherit inputs;
+      src = ./.;
 
-       snowfall.namespace = "my";
-       snowfall.root = ./nix;
-       snowfallorg.user.name = "joel";
-       channels-config.allowUnfree = true;
+      snowfall.namespace = "my";
+      snowfall.root = ./nix;
+      snowfallorg.user.name = "joel";
+      channels-config.allowUnfree = true;
 
-       outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
-     };
+      outputs-builder = channels: { formatter = channels.nixpkgs.nixfmt-rfc-style; };
+    };
 }

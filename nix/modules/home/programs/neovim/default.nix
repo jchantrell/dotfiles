@@ -12,9 +12,7 @@ in
     programs.neovim = {
       enable = true;
       defaultEditor = true;
-      plugins = [
-        pkgs.vimPlugins.lazy-nvim
-      ];
+      plugins = [ pkgs.vimPlugins.lazy-nvim ];
     };
 
     xdg.configFile = {
@@ -22,14 +20,12 @@ in
 
       "nvim/init.lua".text = # lua
         ''
-          package.path = package.path .. ";${config.home.homeDirectory}/.config/nvim/nix/?.lua"
+                    package.path = package.path .. ";${config.home.homeDirectory}/.config/nvim/nix/?.lua"
 
-          vim.g.gcc_bin_path = '${lib.getExe pkgs.gcc}'
-	  vim.g.sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.${
-            if pkgs.stdenv.isDarwin then "dylib" else "so"
-          }'
+                    vim.g.gcc_bin_path = '${lib.getExe pkgs.gcc}'
+          	  vim.g.sqlite_clib_path = '${pkgs.sqlite.out}/lib/libsqlite3.so'
 
-          require("config")
+                    require("config")
         '';
 
       "nvim/lua".source = config.lib.file.mkOutOfStoreSymlink "${nvimDir}/config/lua";

@@ -116,9 +116,7 @@ in
       };
       installAllFonts = lib.mkEnableOption "Install all fonts";
       terminal = lib.mkOption {
-        type = lib.types.enum [
-          "wezterm"
-        ];
+        type = lib.types.enum [ "wezterm" ];
         default = "wezterm";
         description = "Terminal emulator";
       };
@@ -201,7 +199,7 @@ in
         pkgs.wl-clipboard
         pkgs.libnotify
         pkgs.slack
-	pkgs.google-chrome
+        pkgs.google-chrome
       ]
       ++ (
         if cfg.installAllFonts then

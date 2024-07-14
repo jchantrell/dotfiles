@@ -1,7 +1,8 @@
-{ pkgs, lib, config, input, ... }:
-let 
+{ pkgs, ... }:
+let
   user = "joel";
-in {
+in
+{
   imports = [ ./hardware.nix ];
 
   time.timeZone = "Australia/Adelaide";

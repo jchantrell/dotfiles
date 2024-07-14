@@ -1,8 +1,6 @@
 { inputs, ... }:
 {
-  imports = [
-    inputs.nixos-wsl.nixosModules.wsl
-  ];
+  imports = [ inputs.nixos-wsl.nixosModules.wsl ];
 
   wsl = {
     enable = true;

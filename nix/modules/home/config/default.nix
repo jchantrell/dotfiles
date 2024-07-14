@@ -10,18 +10,13 @@
     configDir = lib.mkOption {
       type = lib.types.path;
       apply = toString;
-      default =
-        nixosConfig.my.configDir or "${config.home.homeDirectory}/nix";
+      default = nixosConfig.my.configDir or "${config.home.homeDirectory}/nix";
       description = "Location of the nix config directory (this repo)";
     };
 
     configType = lib.mkOption {
       type = lib.types.str;
-      default =
-        if config.my.isNixos then
-          "nixos"
-        else
-          "standalone";
+      default = if config.my.isNixos then "nixos" else "standalone";
     };
 
     isNixos = lib.mkOption {
