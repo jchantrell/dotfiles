@@ -23,6 +23,7 @@ return { -- autoformat
       lua = { 'stylua' },
       md = { { 'prettierd' } },
       mdx = { { 'prettierd' } },
+      nix = { { 'nixfmt' } },
       typescript = { { 'prettierd' } },
       typescriptreact = { { 'prettierd' } },
       yaml = { 'prettierd' },
@@ -34,6 +35,9 @@ return { -- autoformat
         env = {
           PRETTIERD_DEFAULT_CONFIG = '/home/joel/.prettierrc',
         },
+      },
+      nixfmt = {
+        stdin = true,
       },
     },
   },

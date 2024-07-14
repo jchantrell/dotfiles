@@ -51,9 +51,27 @@ return { -- lsp
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
+          local lspconfig = require('lspconfig')[server_name].setup(server)
         end,
       },
+    }
+    local lspconfig = require 'lspconfig'
+    lspconfig.lua_ls.setup {
+      settings = {
+        Lua = {
+          runtime = { version = 'LuaJIT' },
+          diagnostics = { globals = { 'vim' } },
+          completion = {
+            callSnippet = 'Replace',
+          },
+        },
+      },
+    }
+    lspconfig.nil_ls.setup {}
+    lspconfig.nixd.setup {
+      on_init = function(client, _)
+        client.server_capabilities.semanticTokensProvider = nil
+      end,
     }
   end,
 }
