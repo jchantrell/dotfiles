@@ -67,6 +67,7 @@ return { -- lsp
         },
       },
     }
+    lspconfig.gopls.setup {}
     lspconfig.nil_ls.setup {}
     lspconfig.nixd.setup {
       on_init = function(client, _)
