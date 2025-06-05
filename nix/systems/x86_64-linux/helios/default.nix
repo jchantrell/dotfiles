@@ -13,6 +13,7 @@ in
   };
 
   programs.zsh.enable = true;
+  programs.dconf.enable = true;
 
   users.users.${user} = {
     isNormalUser = true;

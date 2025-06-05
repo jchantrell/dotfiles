@@ -22,7 +22,7 @@ in
   config = lib.mkIf (cfg.enable && cfg.terminal == "wezterm") {
     programs.wezterm = {
       enable = true;
-      extraConfig = builtins.readFile ../../../../../wezterm/wezterm.lua;
+      extraConfig = builtins.readFile ./config.lua;
     };
 
     xdg.configFile."wezterm/nix.lua".text = ''return ${lua}'';

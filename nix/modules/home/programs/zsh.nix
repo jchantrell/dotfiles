@@ -72,6 +72,7 @@
       };
 
       envExtra = ''
+        export PATH=$PATH:/mnt/c/Users/Joel/scoop/apps/win32yank/0.1.1
         export PATH=$PATH:$HOME/.local/bin
         export PATH=$PATH:$HOME/go/bin
         export PRETTIERD_DEFAULT_CONFIG="$HOME/dotfiles/prettier/.prettierrc"

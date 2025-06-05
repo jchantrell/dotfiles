@@ -9,7 +9,7 @@
     home.packages = [ pkgs.git-crypt ];
     programs.git = {
       enable = true;
-      userEmail = "joelchantrell@protonmail.com";
+      userEmail = "me@jchantrell.dev";
       userName = "Joel Chantrell";
       delta.enable = true;
       delta.options = {
