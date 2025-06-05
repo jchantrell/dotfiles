@@ -8,12 +8,8 @@ ctrl + shift + o         : komorebic reload-configuration
 ctrl + 1			: start chrome
 # terminal
 ctrl + 2			: start wezterm-gui
-# excalidraw
-ctrl + 3			: start chrome "https://excalidraw.com"
 # obsidian
-ctrl + 4			: Start-Process 'obsidian://open'
-# slack
-ctrl + 5			: Start-Process 'slack://open'
+ctrl + 3			: Start-Process 'obsidian://open'
 
 # focus
 ctrl + left			: komorebic focus left
