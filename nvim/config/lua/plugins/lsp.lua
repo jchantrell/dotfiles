@@ -1,4 +1,4 @@
-return { -- lsp
+return {
   'neovim/nvim-lspconfig',
   dependencies = {
     'nvim-lua/plenary.nvim',
@@ -40,18 +40,19 @@ return { -- lsp
       end,
     })
 
+    local servers = {}
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
     require('mason').setup()
-    local ensure_installed = vim.tbl_keys(servers or {})
+    local ensure_installed = vim.tbl_keys(servers)
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
     require('mason-lspconfig').setup {
       handlers = {
         function(server_name)
           local server = servers[server_name] or {}
           server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          local lspconfig = require('lspconfig')[server_name].setup(server)
+          require('lspconfig')[server_name].setup(server)
         end,
       },
     }
@@ -67,6 +68,8 @@ return { -- lsp
         },
       },
     }
+    lspconfig.astro.setup {}
+    lspconfig.mdx_analyzer.setup {}
     lspconfig.gopls.setup {}
     lspconfig.nil_ls.setup {}
     lspconfig.nixd.setup {

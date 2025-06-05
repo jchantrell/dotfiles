@@ -11,7 +11,7 @@ return { -- autoformat
       lsp_fallback = false,
     },
     formatters_by_ft = {
-      astro = { 'biome', 'prettierd' },
+      astro = { 'prettier', 'biome', 'prettierd' },
       css = { 'biome', 'prettierd' },
       go = { 'gofmt' },
       graphql = { 'biome', 'prettierd' },

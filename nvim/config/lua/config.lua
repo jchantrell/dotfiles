@@ -18,7 +18,7 @@ vim.opt.updatetime = 50
 vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.list = true
+vim.opt.list = false
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
@@ -54,6 +54,18 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
   callback = function()
     vim.highlight.on_yank()
+  end,
+})
+
+-- tab title
+vim.api.nvim_create_autocmd({ 'BufEnter' }, {
+  callback = function(event)
+    vim.cmd 'set title'
+    local title = 'vim'
+    if event.file ~= '' then
+      title = string.format('vim: %s', vim.fs.basename(event.file))
+    end
+    vim.fn.system { 'wezterm', 'cli', 'set-tab-title', title }
   end,
 })
 
