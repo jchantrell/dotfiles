@@ -12,6 +12,7 @@ return {
       end,
     },
     { 'nvim-telescope/telescope-ui-select.nvim' },
+    { 'nvim-telescope/telescope-frecency.nvim' },
     { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
   },
   config = function()
@@ -30,6 +31,8 @@ return {
         },
       },
       defaults = {
+        layout_strategy = 'horizontal',
+        layout_config = {},
         file_ignore_patterns = { '^.git/' },
         mappings = {
           i = { ['<c-enter>'] = 'to_fuzzy_refine' },
@@ -43,6 +46,7 @@ return {
     }
     pcall(require('telescope').load_extension, 'fzf')
     pcall(require('telescope').load_extension, 'ui-select')
+    pcall(require('telescope').load_extension, 'frecency')
     pcall(require('telescope').load_extension, 'harpoon')
 
     local builtin = require 'telescope.builtin'

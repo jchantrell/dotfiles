@@ -40,12 +40,26 @@ return {
       end,
     })
 
-    local servers = {}
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
+    local servers = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            runtime = { version = 'LuaJIT' },
+            diagnostics = { globals = { 'vim' } },
+            completion = {
+              callSnippet = 'Replace',
+            },
+          },
+        },
+      },
+      gopls = {},
+    }
+
     require('mason').setup()
-    local ensure_installed = vim.tbl_keys(servers)
+    local ensure_installed = vim.tbl_keys(servers or {})
     require('mason-tool-installer').setup { ensure_installed = ensure_installed }
     require('mason-lspconfig').setup {
       handlers = {
@@ -55,27 +69,6 @@ return {
           require('lspconfig')[server_name].setup(server)
         end,
       },
-    }
-    local lspconfig = require 'lspconfig'
-    lspconfig.lua_ls.setup {
-      settings = {
-        Lua = {
-          runtime = { version = 'LuaJIT' },
-          diagnostics = { globals = { 'vim' } },
-          completion = {
-            callSnippet = 'Replace',
-          },
-        },
-      },
-    }
-    lspconfig.astro.setup {}
-    lspconfig.mdx_analyzer.setup {}
-    lspconfig.gopls.setup {}
-    lspconfig.nil_ls.setup {}
-    lspconfig.nixd.setup {
-      on_init = function(client, _)
-        client.server_capabilities.semanticTokensProvider = nil
-      end,
     }
   end,
 }

@@ -65,7 +65,9 @@ vim.api.nvim_create_autocmd({ 'BufEnter' }, {
     if event.file ~= '' then
       title = string.format('vim: %s', vim.fs.basename(event.file))
     end
-    vim.fn.system { 'wezterm', 'cli', 'set-tab-title', title }
+    if vim.fn.executable 'wezterm' == 1 then
+      vim.fn.system { 'wezterm', 'cli', 'set-tab-title', title }
+    end
   end,
 })
 
@@ -81,8 +83,10 @@ require('lazy').setup('plugins', {
     path = '~/workspace',
     fallback = true,
   },
+  require 'plugins.alpha',
   require 'plugins.comment',
   require 'plugins.gitsigns',
+  require 'plugins.gitfugitive',
   require 'plugins.which-key',
   require 'plugins.telescope',
   require 'plugins.lsp',
