@@ -18,7 +18,7 @@ vim.opt.updatetime = 50
 vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
-vim.opt.list = false
+vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
@@ -26,12 +26,12 @@ vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
 
 -- move highlighted
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'C-Up', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'C-Down', ":m '<-2<CR>gv=gv")
 
 -- half page jumping with centered cursor
-vim.keymap.set('n', '<C-d>', '<C-d>zz')
-vim.keymap.set('n', '<C-u>', '<C-u>zz')
+vim.keymap.set('n', '<PageDown>', '<C-d>zz')
+vim.keymap.set('n', '<PageUp>', '<C-u>zz')
 
 -- move below line to current line + retain cursor position
 vim.keymap.set('n', 'J', 'mzJ`z')
@@ -98,6 +98,7 @@ require('lazy').setup('plugins', {
   require 'plugins.harpoon',
   require 'plugins.neo-tree',
   require 'plugins.multicursor',
+  require 'plugins.flash',
 }, {
   ui = {
     icons = vim.g.have_nerd_font and {} or {

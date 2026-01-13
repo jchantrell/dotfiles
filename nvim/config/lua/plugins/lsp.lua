@@ -1,4 +1,4 @@
-return {
+return { -- lsp
   'neovim/nvim-lspconfig',
   dependencies = {
     'nvim-lua/plenary.nvim',
