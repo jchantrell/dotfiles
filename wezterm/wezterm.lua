@@ -76,24 +76,36 @@ local keys = {
   { key = 'DownArrow', mods = 'SHIFT', action = wezterm.action { ActivatePaneDirection = 'Down' } },
   { key = 'UpArrow', mods = 'SHIFT', action = wezterm.action { ActivatePaneDirection = 'Up' } },
   { key = 'RightArrow', mods = 'SHIFT', action = wezterm.action { ActivatePaneDirection = 'Right' } },
-  { key = 'LeftArrow', mods = 'CTRL', action = wezterm.action { AdjustPaneSize = { 'Left', 5 } } },
-  { key = 'DownArrow', mods = 'CTRL', action = wezterm.action { AdjustPaneSize = { 'Down', 5 } } },
-  { key = 'UpArrow', mods = 'CTRL', action = wezterm.action { AdjustPaneSize = { 'Up', 5 } } },
-  { key = 'RightArrow', mods = 'CTRL', action = wezterm.action { AdjustPaneSize = { 'Right', 5 } } },
+  { key = 'LeftArrow', mods = 'ALT|SHIFT', action = wezterm.action { AdjustPaneSize = { 'Left', 5 } } },
+  { key = 'DownArrow', mods = 'ALT|SHIFT', action = wezterm.action { AdjustPaneSize = { 'Down', 5 } } },
+  { key = 'UpArrow', mods = 'ALT|SHIFT', action = wezterm.action { AdjustPaneSize = { 'Up', 5 } } },
+  { key = 'RightArrow', mods = 'ALT|SHIFT', action = wezterm.action { AdjustPaneSize = { 'Right', 5 } } },
 }
 
 local config = {
+  front_end = 'OpenGL',
+  max_fps = 120,
+  animation_fps = 1,
+  default_cursor_style = 'BlinkingBlock',
+  cursor_blink_rate = 500,
   adjust_window_size_when_changing_font_size = false,
   audible_bell = 'Disabled',
+  canonicalize_pasted_newlines = 'None',
   color_scheme = 'muted',
+  colors = {
+    background = 'hsl: 2 3 12',
+  },
+  inactive_pane_hsb = {
+    saturation = 1,
+    brightness = 1,
+  },
   disable_default_key_bindings = true,
   exit_behavior = 'Close',
-  font_size = 16,
+  font_size = 14,
+  font = wezterm.font 'Codelia',
   force_reverse_video_cursor = true,
-  hide_tab_bar_if_only_one_tab = true,
   keys = keys,
   scrollback_lines = 10000,
-  show_update_window = false,
   use_dead_keys = false,
   unicode_version = 14,
   window_decorations = 'RESIZE',
@@ -104,15 +116,22 @@ local config = {
     top = 1,
     bottom = 0,
   },
-  canonicalize_pasted_newlines = 'None',
+  ssh_domains = {
+    {
+      name = 'woodside',
+      remote_address = '192.168.20.4',
+      username = 'juniper',
+      multiplexing = 'None',
+      assume_shell = 'Posix',
+    },
+  },
 }
 
 if target_triple == 'x86_64-pc-windows-msvc' then
   for _, dom in ipairs(wsl_domains) do
-    local docker = string.find(dom.name, 'docker')
-    if docker == nil then
+    if dom.distribution == 'Ubuntu-24.04' then
       table.insert(launch_menu, {
-        label = dom.distribution,
+        label = 'Linux',
         domain = { DomainName = dom.name },
       })
     end
@@ -127,8 +146,13 @@ if target_triple == 'x86_64-pc-windows-msvc' then
     domain = { DomainName = 'local' },
     args = { 'cmd.exe', '-NoLogo' },
   })
+  table.insert(launch_menu, {
+    label = 'Mac',
+    domain = { DomainName = 'local' },
+    args = { 'wezterm', 'cli', 'spawn', '--domain-name', 'woodside' },
+  })
+
   config.wsl_domains = wsl_domains
-  config.default_prog = { 'pwsh.exe', '-NoLogo' }
 end
 
 if target_triple == 'x86_64-unknown-linux-gnu' then
