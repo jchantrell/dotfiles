@@ -24,6 +24,7 @@ vim.opt.inccommand = 'split'
 vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 vim.opt.hlsearch = true
+vim.opt.termguicolors = true
 
 -- move highlighted
 vim.keymap.set('v', 'C-Up', ":m '>+1<CR>gv=gv")
@@ -40,8 +41,8 @@ vim.keymap.set('n', 'J', 'mzJ`z')
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- diagnostic
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', 'dN', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', 'dn', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -80,13 +81,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('plugins', {
   dev = {
-    path = '~/workspace',
+    path = '~/Work',
     fallback = true,
   },
   require 'plugins.alpha',
   require 'plugins.comment',
   require 'plugins.gitsigns',
-  require 'plugins.gitfugitive',
   require 'plugins.which-key',
   require 'plugins.telescope',
   require 'plugins.lsp',

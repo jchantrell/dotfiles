@@ -1,15 +1,16 @@
-return { -- lsp
+return {
   'neovim/nvim-lspconfig',
   dependencies = {
     'nvim-lua/plenary.nvim',
-    'williamboman/mason.nvim',
-    'williamboman/mason-lspconfig.nvim',
+    { 'williamboman/mason.nvim', version = 'v1.*' },
+    { 'williamboman/mason-lspconfig.nvim', version = 'v1.*' },
     'WhoIsSethDaniel/mason-tool-installer.nvim',
     { 'j-hui/fidget.nvim', opts = {} },
-    { 'pmizio/typescript-tools.nvim', opts = {} },
+    -- { 'pmizio/typescript-tools.nvim', opts = {} },
   },
   config = function()
     vim.api.nvim_create_autocmd('LspAttach', {
+
       group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
       callback = function(event)
         local map = function(keys, func, desc)
@@ -25,6 +26,7 @@ return { -- lsp
         map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
         map('K', vim.lsp.buf.hover, 'Hover Documentation')
         map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and client.server_capabilities.documentHighlightProvider then
           vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
@@ -40,35 +42,58 @@ return { -- lsp
       end,
     })
 
-    local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
-
     local servers = {
+      astro = {},
+      biome = {},
+      clangd = {},
+      docker_compose_language_service = {},
+      eslint = {},
+      gopls = {},
+      graphql = {},
+      html = {},
+      jqls = {},
+      jsonls = {},
       lua_ls = {
         settings = {
           Lua = {
-            runtime = { version = 'LuaJIT' },
-            diagnostics = { globals = { 'vim' } },
+            runtime = {
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              globals = {
+                'vim',
+                'require',
+              },
+            },
+            workspace = {
+              library = vim.api.nvim_get_runtime_file('', true),
+            },
             completion = {
               callSnippet = 'Replace',
             },
           },
         },
       },
-      gopls = {},
+      mdx_analyzer = {},
+      pyright = {},
+      rust_analyzer = {},
+      stylua = {},
+      tailwindcss = {},
+      terraformls = {},
+      ts_ls = {},
+      yamlls = {},
+      zls = {},
     }
+    local keys = vim.tbl_keys(servers or {})
 
     require('mason').setup()
-    local ensure_installed = vim.tbl_keys(servers or {})
-    require('mason-tool-installer').setup { ensure_installed = ensure_installed }
-    require('mason-lspconfig').setup {
-      handlers = {
-        function(server_name)
-          local server = servers[server_name] or {}
-          server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-          require('lspconfig')[server_name].setup(server)
-        end,
-      },
-    }
+    require('mason-lspconfig').setup {}
+    require('mason-tool-installer').setup { ensure_installed = keys }
+
+    vim.lsp.enable 'typescript-language-server'
+    for _, f in pairs(keys) do
+      vim.lsp.config(f, servers[f])
+      vim.lsp.enable(f)
+    end
   end,
 }
