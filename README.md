@@ -15,7 +15,7 @@ mirroring the paths it owns under `$HOME`.
 | `btop` | `~/.config/btop` |
 | `zed` | `~/.config/zed` |
 | `git` | `~/.gitconfig`, `~/.config/git/ignore` |
-| `claude` | `~/.claude` (CLAUDE.md, settings, agents, commands, rules, skills, mcp) |
+| `claude` | `~/.claude` (CLAUDE.md, settings, agents, commands, rules, skills, MCP server source) |
 | `opencode` | `~/.config/opencode` (config, agents, commands, skills) |
 | `packages/` | `Brewfile` (macOS) + `pacman.txt` / `aur.txt` (Linux) — not a Stow package |
 
@@ -51,6 +51,15 @@ write their own runtime state into the real directory alongside the symlinks.
 > On an **already-configured** machine, existing real config files will conflict
 > with Stow. Back them up (or remove them) first — the happy path assumes a
 > fresh box.
+
+## MCP servers
+
+Claude reads MCP definitions from `~/.claude.json` (user scope) — **not** from
+anything under `~/.claude/`. That file holds session state/secrets and isn't
+tracked, so `bootstrap.sh` registers the servers with `claude mcp add`:
+`repo-tools` (source vendored under `claude/`), `chrome-devtools`, and
+`context7`. Re-run those commands by hand if the `claude` CLI wasn't installed
+at bootstrap time.
 
 ## Notes
 - **Not tracked:** gaming/GUI apps (manually maintained), plugin/marketplace

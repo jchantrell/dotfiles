@@ -62,6 +62,17 @@ if command -v bun >/dev/null 2>&1 && [ -d "$HOME/.claude/mcp-servers/repo-tools"
   (cd "$HOME/.claude/mcp-servers/repo-tools" && bun install) || warn "bun install failed"
 fi
 
+# Register user-scope MCP servers (writes to ~/.claude.json, which Claude reads).
+# $HOME is expanded now, so the stored path is correct on any machine.
+if command -v claude >/dev/null 2>&1; then
+  log "Registering MCP servers (claude, user scope)"
+  claude mcp add --scope user repo-tools -- bun run "$HOME/.claude/mcp-servers/repo-tools/index.ts" 2>/dev/null || true
+  claude mcp add --scope user chrome-devtools -- npx -y chrome-devtools-mcp@latest 2>/dev/null || true
+  claude mcp add --scope user --transport http context7 https://mcp.context7.com/mcp 2>/dev/null || true
+else
+  warn "claude CLI not found — register MCP servers later (see README)"
+fi
+
 if command -v nvim >/dev/null 2>&1; then
   log "Syncing neovim plugins from lockfile"
   nvim --headless "+Lazy! restore" +qa 2>/dev/null || warn "nvim plugin sync failed"
