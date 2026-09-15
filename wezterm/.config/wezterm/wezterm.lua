@@ -206,7 +206,6 @@ local config = {
 	font = wezterm.font("Codelia"),
 	force_reverse_video_cursor = true,
 	keys = keys,
-	native_macos_fullscreen = true,
 	scrollback_lines = 10000,
 	use_dead_keys = false,
 	unicode_version = 14,
@@ -268,6 +267,14 @@ for i = 1, 8 do
 	table.insert(config.keys, {
 		key = "F" .. tostring(i),
 		action = wezterm.action.ActivateTab(i - 1),
+	})
+end
+
+if target_triple:find("apple%-darwin") then
+	table.insert(config.keys, {
+		key = "f",
+		mods = "CMD|CTRL",
+		action = wezterm.action.ToggleFullScreen,
 	})
 end
 
