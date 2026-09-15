@@ -1,0 +1,89 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$REPO"
+
+# Runtime-heavy dirs use --no-folding so the app can still write its own state
+# (sessions, fisher plugins, caches) into the real dir alongside our symlinks.
+STOW_PACKAGES=(fish nvim wezterm starship btop zed git claude opencode)
+
+log()  { printf '\033[1;32m==>\033[0m %s\n' "$*"; }
+warn() { printf '\033[1;33m[!]\033[0m %s\n' "$*"; }
+
+os="$(uname)"
+
+install_packages_macos() {
+  if ! command -v brew >/dev/null 2>&1; then
+    log "Installing Homebrew"
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv)"
+  fi
+  log "brew bundle"
+  brew bundle --file="$REPO/packages/Brewfile"
+}
+
+install_packages_linux() {
+  log "Installing repo packages (pacman)"
+  grep -vE '^\s*(#|$)' "$REPO/packages/pacman.txt" | sudo pacman -S --needed --noconfirm -
+  if command -v yay >/dev/null 2>&1; then
+    log "Installing AUR packages (yay)"
+    grep -vE '^\s*(#|$)' "$REPO/packages/aur.txt" | yay -S --needed --noconfirm -
+  else
+    warn "yay not found — skipping AUR packages (see packages/aur.txt)"
+  fi
+}
+
+case "$os" in
+  Darwin) install_packages_macos ;;
+  Linux)  install_packages_linux ;;
+  *) warn "Unknown OS '$os' — skipping package install" ;;
+esac
+
+if ! command -v stow >/dev/null 2>&1; then
+  warn "stow is missing after the package step — cannot symlink configs"; exit 1
+fi
+
+log "Symlinking configs with stow"
+for pkg in "${STOW_PACKAGES[@]}"; do
+  stow --no-folding --restow -t "$HOME" "$pkg"
+done
+
+if command -v fish >/dev/null 2>&1; then
+  log "Installing fish plugins (fisher reads fish_plugins)"
+  fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source; fisher update' \
+    || warn "fisher install failed — run 'fisher update' in fish later"
+  log "Installing LTS node via nvm.fish"
+  fish -c 'nvm install lts' || warn "node install failed — run 'nvm install lts' later"
+fi
+
+if command -v bun >/dev/null 2>&1 && [ -d "$HOME/.claude/mcp-servers/repo-tools" ]; then
+  log "Installing repo-tools MCP server deps"
+  (cd "$HOME/.claude/mcp-servers/repo-tools" && bun install) || warn "bun install failed"
+fi
+
+if command -v nvim >/dev/null 2>&1; then
+  log "Syncing neovim plugins from lockfile"
+  nvim --headless "+Lazy! restore" +qa 2>/dev/null || warn "nvim plugin sync failed"
+fi
+
+if command -v fish >/dev/null 2>&1; then
+  fish_path="$(command -v fish)"
+  if ! grep -qxF "$fish_path" /etc/shells 2>/dev/null; then
+    log "Adding fish to /etc/shells"
+    echo "$fish_path" | sudo tee -a /etc/shells >/dev/null
+  fi
+  if [ "${SHELL:-}" != "$fish_path" ]; then
+    log "Setting fish as the default shell"
+    chsh -s "$fish_path" || warn "chsh failed — set the default shell manually"
+  fi
+fi
+
+cat <<'EOF'
+
+==> Bootstrap complete. Manual follow-ups:
+  * Install the "Codelia" terminal font (paid; wezterm falls back to a Nerd Font otherwise).
+  * gh auth login              # GitHub credential helper
+  * Restore ~/.ssh keys        # if you sign commits
+  * Restart the terminal so fish + PATH changes take effect.
+EOF

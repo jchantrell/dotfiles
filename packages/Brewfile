@@ -1,0 +1,54 @@
+# macOS dev tooling. Install with: brew bundle --file=packages/Brewfile
+# Gaming/GUI apps are intentionally NOT tracked here — install those manually.
+
+tap "oven-sh/bun"
+
+# --- Core CLI ---
+brew "git"
+brew "git-lfs"
+brew "gh"
+brew "stow"
+brew "starship"
+brew "zoxide"
+brew "fzf"
+brew "ripgrep"
+brew "fd"
+brew "bat"
+brew "eza"
+brew "jq"
+brew "tree"
+brew "wget"
+brew "btop"
+brew "gitleaks"
+brew "mosh"
+
+# --- Editor / shell ---
+brew "neovim"
+brew "fish"
+
+# --- Languages / runtimes ---
+brew "go"
+brew "rustup"
+brew "oven-sh/bun/bun"
+brew "pnpm"
+brew "python@3.13"
+brew "pipx"
+# Node is managed via nvm.fish (see bootstrap.sh), not brew.
+
+# --- Formatters / linters (nvim + editor hooks) ---
+brew "biome"
+brew "stylua"
+brew "shfmt"
+brew "shellcheck"
+
+# --- GUI ---
+cask "wezterm"       # for the nightly build the Linux box runs, use "wezterm@nightly"
+cask "zed"
+
+# --- Fonts ---
+# Terminal font is "Codelia" (paid, not on Homebrew) — install manually.
+# Nerd Font supplies the symbol glyphs wezterm falls back to:
+cask "font-symbols-only-nerd-font"
+
+# --- Optional / heavy (uncomment as needed) ---
+# cask "ollama"      # local models referenced by opencode.json

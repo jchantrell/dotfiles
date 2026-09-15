@@ -1,0 +1,30 @@
+# CachyOS / Arch repo dev tooling (curated subset of `pacman -Qqe`).
+# Install: sudo pacman -S --needed - < packages/pacman.txt
+# Note: many CLI tools (fd, bat, fzf, eza, ripgrep...) ship via the CachyOS
+# base meta-packages or cargo/npm and are intentionally omitted.
+# Gaming/GUI packages are manually maintained and not tracked here.
+
+btop
+bun
+fish
+git
+github-cli
+gitleaks
+go
+just
+neovim-git
+npm
+nvm
+ollama
+python
+python-pip
+python-pipx
+ripgrep
+starship
+stow
+tree
+unzip
+wget
+zed
+zip
+zoxide

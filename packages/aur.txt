@@ -1,0 +1,4 @@
+# AUR dev packages (curated subset of `pacman -Qqm`).
+# Install with an AUR helper, e.g.: yay -S --needed - < packages/aur.txt
+
+wezterm-git
