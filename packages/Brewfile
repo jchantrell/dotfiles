@@ -1,8 +1,6 @@
 # macOS dev tooling. Install with: brew bundle --file=packages/Brewfile
 # Gaming/GUI apps are intentionally NOT tracked here — install those manually.
 
-tap "oven-sh/bun"
-
 # --- Core CLI ---
 brew "git"
 brew "git-lfs"
@@ -29,7 +27,7 @@ brew "fish"
 # --- Languages / runtimes ---
 brew "go"
 brew "rustup"
-brew "oven-sh/bun/bun"
+brew "bun"
 brew "pnpm"
 brew "python@3.13"
 brew "pipx"
