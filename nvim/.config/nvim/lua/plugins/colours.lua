@@ -3,9 +3,7 @@ return { -- colour scheme
   lazy = false,
   priority = 1000,
   config = function()
-    require('mellifluous').setup {
-      dim_inactive = false,
-    }
+    require('mellifluous').setup {}
     vim.cmd.colorscheme 'mellifluous'
     vim.cmd.hi 'Comment gui=none'
   end,

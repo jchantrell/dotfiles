@@ -1,5 +1,3 @@
-# muted Theme
-
 [colors]
 foreground = "#f0f0f0"
 background = "#1a1a1a"
@@ -7,6 +5,16 @@ cursor_bg = "#f0f0f0"
 cursor_fg = "#f0f0f0"
 cursor_border = "#262626"
 split = "#4c4c4c"
-
 ansi = [ "#8f8aac", "#ac8a8c", "#bf9ac1", "#aca98a", "#8aabac", "#ac8aac","#8aabac", "#e7e7e8" ]
 brights = [ "#a39ec4", "#c49ea0", "#d7a7d2", "#c4c19e", "#9ec3c4", "#c49ec4", "#bfaf8e", "#f0f0f0" ]
+
+[colors.tab_bar]
+background = "#1a1a1a"
+
+[colors.tab_bar.new_tab]
+bg_color = "#1a1a1a"
+fg_color = "#808080"
+
+[colors.tab_bar.new_tab_hover]
+bg_color = "#333333"
+fg_color = "#f0f0f0"

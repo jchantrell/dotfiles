@@ -27,6 +27,7 @@ return { -- autoformat
       md = { 'biome', 'prettierd', stop_after_first = true },
       mdx = { 'biome', 'prettierd', stop_after_first = true },
       nix = { 'nixfmt' },
+      python = { 'black' },
       tsx = { 'biome', 'prettierd', stop_after_first = true },
       typescript = { 'biome', 'prettierd', stop_after_first = true },
       typescriptreact = { 'biome', 'prettierd', stop_after_first = true },
