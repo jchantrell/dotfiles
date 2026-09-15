@@ -1,0 +1,19 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "ollama/kimi-k2.6:cloud",
+  "provider": {
+    "ollama": {
+      "models": {
+        "kimi-k2.6:cloud": {
+          "_launch": true,
+          "name": "kimi-k2.6:cloud"
+        }
+      },
+      "name": "Ollama",
+      "npm": "@ai-sdk/openai-compatible",
+      "options": {
+        "baseURL": "http://127.0.0.1:11434/v1"
+      }
+    }
+  }
+}
