@@ -51,6 +51,7 @@ cask "zed"
 cask "1password"
 cask "1password-cli"
 cask "slack"
+cask "claude"
 
 # --- Fonts ---
 # Terminal font is "Codelia" (paid, not on Homebrew) — install manually.
