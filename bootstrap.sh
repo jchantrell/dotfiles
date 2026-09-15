@@ -21,6 +21,20 @@ install_packages_macos() {
   fi
   log "brew bundle"
   brew bundle --file="$REPO/packages/Brewfile"
+  install_awscli_macos
+}
+
+install_awscli_macos() {
+  if command -v aws >/dev/null 2>&1; then return; fi
+  log "Installing AWS CLI v2 (official pkg — avoids Homebrew python/expat breakage)"
+  local pkg
+  pkg="$(mktemp -t awscliv2)".pkg
+  if curl -fsSL "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "$pkg" \
+    && sudo installer -pkg "$pkg" -target /; then
+    rm -f "$pkg"
+  else
+    warn "AWS CLI install failed — see https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html"
+  fi
 }
 
 install_packages_linux() {

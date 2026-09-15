@@ -40,7 +40,8 @@ brew "shfmt"
 brew "shellcheck"
 
 # --- AWS / cloud ---
-brew "awscli"
+# awscli v2 is installed via the official pkg in bootstrap.sh — Homebrew's
+# python-linked build breaks on expat version bumps.
 brew "aws-sam-cli"
 brew "aws-cdk"
 
