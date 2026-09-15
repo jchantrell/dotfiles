@@ -39,6 +39,11 @@ brew "stylua"
 brew "shfmt"
 brew "shellcheck"
 
+# --- AWS / cloud ---
+brew "awscli"
+brew "aws-sam-cli"
+brew "aws-cdk"
+
 # --- GUI ---
 cask "wezterm"       # for the nightly build the Linux box runs, use "wezterm@nightly"
 cask "zed"
