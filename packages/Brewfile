@@ -44,6 +44,7 @@ cask "wezterm"       # for the nightly build the Linux box runs, use "wezterm@ni
 cask "zed"
 cask "1password"
 cask "1password-cli"
+cask "slack"
 
 # --- Fonts ---
 # Terminal font is "Codelia" (paid, not on Homebrew) — install manually.
