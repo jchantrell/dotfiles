@@ -65,7 +65,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pw-play /usr/share/sounds/freedesktop/stereo/bell.oga 2>/dev/null || afplay /System/Library/Sounds/Ping.aiff 2>/dev/null || true",
+            "command": "pw-play /usr/share/sounds/freedesktop/stereo/bell.oga 2>/dev/null || afplay /System/Library/Sounds/Pop.aiff 2>/dev/null || true",
             "timeout": 5
           }
         ]
