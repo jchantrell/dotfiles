@@ -270,14 +270,6 @@ for i = 1, 8 do
 	})
 end
 
-if target_triple:find("apple%-darwin") then
-	table.insert(config.keys, {
-		key = "f",
-		mods = "CMD|CTRL",
-		action = wezterm.action.ToggleFullScreen,
-	})
-end
-
 config.launch_menu = launch_menu
 config.window_decorations = "NONE"
 
