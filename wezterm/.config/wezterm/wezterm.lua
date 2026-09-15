@@ -206,6 +206,7 @@ local config = {
 	font = wezterm.font("Codelia"),
 	force_reverse_video_cursor = true,
 	keys = keys,
+	native_macos_fullscreen = true,
 	scrollback_lines = 10000,
 	use_dead_keys = false,
 	unicode_version = 14,
