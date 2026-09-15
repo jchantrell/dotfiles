@@ -67,8 +67,9 @@ if command -v fish >/dev/null 2>&1; then
   log "Installing fish plugins (fisher reads fish_plugins)"
   fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source; fisher update' \
     || warn "fisher install failed — run 'fisher update' in fish later"
-  log "Installing LTS node via nvm.fish"
-  fish -c 'nvm install lts' || warn "node install failed — run 'nvm install lts' later"
+  log "Installing LTS node + Claude Code via nvm.fish"
+  fish -c 'nvm install lts; and npm install -g @anthropic-ai/claude-code' \
+    || warn "node/claude-code install failed — run: nvm install lts; npm install -g @anthropic-ai/claude-code"
 fi
 
 if command -v bun >/dev/null 2>&1 && [ -d "$HOME/.claude/mcp-servers/repo-tools" ]; then
